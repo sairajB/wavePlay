@@ -24,27 +24,6 @@ The application captures video from a webcam, processes each frame to detect the
 
 This tool is particularly beneficial for individuals who may have difficulty using traditional input devices due to physical limitations. By recognizing and mapping hand gestures to keyboard commands, users can interact with their computers in a more accessible and intuitive way.
 
-## Requirements
-
-To run this project, ensure you have the following Python packages installed:
-
-- `opencv-python`
-- `mediapipe`
-- `pyautogui`
-
-Install the dependencies using pip:
-
-```bash
-pip install opencv-python mediapipe pyautogui
-```
-
-## Usage
-
-1. **Run the Script**: Start the application by executing the Python script:
-
-    ```bash
-    python your_script_name.py
-    ```
 
 2. **Perform Gestures**:
     - **1 Finger Raised**: Simulates pressing the right arrow key.
