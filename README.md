@@ -9,9 +9,7 @@ Hand Gesture Control is a project designed to facilitate hands-free interaction 
 - [How It Works](#how-it-works)
 - [Features](#features)
 - [Use Case](#use-case)
-- [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## How It Works
