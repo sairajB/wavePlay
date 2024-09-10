@@ -48,10 +48,6 @@ To start using the Hand Gesture Control application:
     - **2 Fingers Raised**: Simulates pressing the left arrow key.
     - **3 Fingers Raised**: Simulates pressing the up arrow key.
 
-## Contributing
-
-Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to contribute to this project.
-
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
