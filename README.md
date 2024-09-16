@@ -45,6 +45,8 @@ To start using the Hand Gesture Control application:
     - **1 Finger Raised**: Simulates pressing the right arrow key.
     - **2 Fingers Raised**: Simulates pressing the left arrow key.
     - **3 Fingers Raised**: Simulates pressing the up arrow key.
+    - **4 Fingers Raised**: Simulates pressing the down arrow key.
+    - **5 Fingers Raised**: Simulates pressing the space key.
 
 ## License
 
