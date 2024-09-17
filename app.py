@@ -7,10 +7,20 @@ import threading
 
 app = Flask(__name__)
 
-streaming = False  # Flag to indicate if the stream is running
-video_capture = None  # Variable to hold the webcam object
+streaming = False
+video_capture = None
+hand_detector = None
 
-# Function to count the number of fingers raised
+def initialize_components():
+    global video_capture, hand_detector
+    # Initialize the webcam
+    video_capture = cv2.VideoCapture(0)
+    # Initialize MediaPipe hands model
+    hand_detector = mp.solutions.hands.Hands(max_num_hands=1)
+
+# Initialize components in a separate thread
+threading.Thread(target=initialize_components).start()
+
 def count_fingers(hand_landmarks):
     finger_count = 0
     threshold = (hand_landmarks.landmark[0].y * 100 - hand_landmarks.landmark[9].y * 100) / 2
@@ -32,42 +42,38 @@ def count_fingers(hand_landmarks):
 
     return finger_count
 
-# Initialize MediaPipe hands model
 drawing_utils = mp.solutions.drawing_utils
 hands_module = mp.solutions.hands
-hand_detector = hands_module.Hands(max_num_hands=1)  # Detect one hand at a time
 
 gesture_initialized = False
 previous_finger_count = -1
 
 def generate_frames():
-    global gesture_initialized, previous_finger_count, video_capture, streaming
+    global gesture_initialized, previous_finger_count, video_capture, streaming, hand_detector
 
-    # Initialize the webcam
-    if video_capture is None or not video_capture.isOpened():
-        video_capture = cv2.VideoCapture(0)
+    while streaming:
+        if video_capture is None or hand_detector is None:
+            time.sleep(0.1)  # Wait for initialization
+            continue
 
-    while streaming:  # Only run if streaming is True
         current_time = time.time()
         success, frame = video_capture.read()
 
-        if not success or not streaming:  # Stop if no success or streaming has been stopped
+        if not success or not streaming:
             break
         else:
             frame = cv2.flip(frame, 1)
 
-            # Process the frame to detect hand landmarks
             results = hand_detector.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
             if results.multi_hand_landmarks:
                 hand_landmarks = results.multi_hand_landmarks[0]
                 finger_count = count_fingers(hand_landmarks)
 
-                if not (previous_finger_count == finger_count):
+                if previous_finger_count != finger_count:
                     if not gesture_initialized:
                         start_time = time.time()
                         gesture_initialized = True
-
                     elif (current_time - start_time) > 0.2:
                         if finger_count == 1:
                             pyautogui.press("right")
@@ -83,19 +89,13 @@ def generate_frames():
                         previous_finger_count = finger_count
                         gesture_initialized = False
 
-                # Draw landmarks
                 drawing_utils.draw_landmarks(frame, hand_landmarks, hands_module.HAND_CONNECTIONS)
 
-            # Convert the frame to JPEG format
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
 
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-    # When streaming stops, release the webcam
-    if video_capture is not None and video_capture.isOpened():
-        video_capture.release()
 
 @app.route('/')
 def index():
@@ -104,22 +104,20 @@ def index():
 @app.route('/start_video', methods=['POST'])
 def start_video():
     global streaming
-    streaming = True  # Set streaming to True to start the video
+    streaming = True
     return '', 204
 
 @app.route('/video_feed')
 def video_feed():
     global streaming
-    if streaming:  # Stream the video only if streaming is True
+    if streaming:
         return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
-    return '', 204  # If not streaming, return an empty response
+    return '', 204
 
 @app.route('/stop_video', methods=['POST'])
 def stop_video():
-    global streaming, video_capture
-    streaming = False  # Set streaming to False to stop the video feed
-    if video_capture is not None and video_capture.isOpened():
-        video_capture.release()  # Release the webcam when stopping the video feed
+    global streaming
+    streaming = False
     return '', 204
 
 if __name__ == '__main__':
