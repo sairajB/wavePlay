@@ -3,6 +3,7 @@ gunicorn==20.1.0
 opencv-python-headless==4.5.3.56
 mediapipe==0.8.6
 pyautogui==0.9.52
-setuptools==65.5.0
-wheel==0.38.4
+setuptools>=75.1.0
+wheel>=0.44.0
 six==1.16.0
+numpy==1.21.0
