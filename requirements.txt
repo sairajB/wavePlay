@@ -1,9 +1,15 @@
+# Specify Python version
+python==3.11.0
+
+# List of dependencies
 Flask==2.0.2
 gunicorn==20.1.0
 opencv-python-headless==4.6.0.66
 mediapipe==0.10.15
 pyautogui==0.9.52
 numpy==1.21.0
+
+# Ensure setuptools and pip are up-to-date
 setuptools>=68.2.2
+pip>=23.3.1
 wheel>=0.42.0
-six>=1.16.0
