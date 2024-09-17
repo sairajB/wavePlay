@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gesture Control</title>
+    <script>
+        function stopVideo() {
+            fetch('/stop_video', { method: 'POST' })  // Send a POST request to stop the video stream
+            .then(() => {
+                window.location.reload();  // Reload the page to stop showing the feed
+            });
+        }
+    </script>
 </head>
 <body>
     <h1>Gesture-Based Media Control</h1>
     <p>Use your hand gestures to control media playback.</p>
     <img src="{{ url_for('video_feed') }}" width="640" height="480" alt="Webcam Feed">
+    <br><br>
+    <button onclick="stopVideo()">Stop</button>  <!-- Stop button -->
 </body>
 </html>
