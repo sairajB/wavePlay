@@ -4,10 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gesture Control</title>
+    <script>
+        function startVideo() {
+            fetch('/start_video', { method: 'POST' })  // Send a POST request to start the video stream
+            .then(() => {
+                document.getElementById('start-btn').style.display = 'none';  // Hide start button
+                document.getElementById('stop-btn').style.display = 'block';  // Show stop button
+                document.getElementById('video-feed').src = "{{ url_for('video_feed') }}";  // Start video stream
+            });
+        }
+
+        function stopVideo() {
+            fetch('/stop_video', { method: 'POST' })  // Send a POST request to stop the video stream
+            .then(() => {
+                document.getElementById('stop-btn').style.display = 'none';  // Hide stop button
+                document.getElementById('start-btn').style.display = 'block';  // Show start button
+                document.getElementById('video-feed').src = "";  // Stop video stream by removing the feed
+            });
+        }
+    </script>
 </head>
 <body>
     <h1>Gesture-Based Media Control</h1>
     <p>Use your hand gestures to control media playback.</p>
-    <img src="{{ url_for('video_feed') }}" width="640" height="480" alt="Webcam Feed">
+
+    <!-- Start and Stop buttons -->
+    <button id="start-btn" onclick="startVideo()">Start</button>
+    <button id="stop-btn" style="display: none;" onclick="stopVideo()">Stop</button>
+
+    <!-- Video feed placeholder -->
+    <br><br>
+    <img id="video-feed" width="640" height="480" alt="Webcam Feed">
 </body>
 </html>
