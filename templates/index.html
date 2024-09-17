@@ -1,152 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gesture-Based Media Control</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff;
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #ffffff;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
+      .container {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .description {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+        opacity: 0.8;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .control-button {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+      }
+
+      .control-button:hover {
+        background-color: #45a049;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .hand-icon {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        animation: wave 2s infinite;
+      }
+
+      .hand-icon svg {
+        width: 100%;
+        height: 100%;
+        stroke: #ffffff;
+      }
+
+      @keyframes wave {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(20deg);
+        }
+        75% {
+          transform: rotate(-20deg);
+        }
+      }
+
+      @media (max-width: 600px) {
         .container {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+          padding: 20px;
         }
 
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+          font-size: 2em;
         }
 
         .description {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            opacity: 0.8;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
+          font-size: 1em;
         }
 
         .control-button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-
-        .control-button:hover {
-            background-color: #45a049;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+          padding: 10px 20px;
         }
 
         .hand-icon {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto;
-            animation: wave 2s infinite;
+          width: 80px;
+          height: 80px;
         }
-
-        .hand-icon svg {
-            width: 100%;
-            height: 100%;
-            stroke: #ffffff;
-        }
-
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(20deg); }
-            75% { transform: rotate(-20deg); }
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            .description {
-                font-size: 1em;
-            }
-
-            .control-button {
-                padding: 10px 20px;
-            }
-
-            .hand-icon {
-                width: 80px;
-                height: 80px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Gesture-Based Media Control</h1>
-        <p class="description">Use your hand gestures to control media playback.</p>
-        <div class="button-container">
-            <button id="startButton" class="control-button">Start</button>
-            <button id="stopButton" class="control-button">Stop</button>
-        </div>
-        <div class="hand-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
-                <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
-                <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
-                <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
-            </svg>
-        </div>
-        <div>
-            <img id="videoFeed" style="display:none;" width="640" height="480" />
-        </div>
+      <h1>Gesture-Based Media Control</h1>
+      <p class="description">
+        Use your hand gestures to control media playback.
+      </p>
+      <div class="button-container">
+        <button id="startButton" class="control-button">Start</button>
+        <button id="stopButton" class="control-button">Stop</button>
+      </div>
+      <div class="hand-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
+          <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
+          <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
+          <path
+            d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"
+          ></path>
+        </svg>
+      </div>
+      <div>
+        <img id="videoFeed" style="display: none" width="640" height="480" />
+      </div>
     </div>
 
     <script>
-        const startButton = document.getElementById("startButton");
-        const stopButton = document.getElementById("stopButton");
-        const videoFeed = document.getElementById("videoFeed");
+      const startButton = document.getElementById("startButton");
+      const stopButton = document.getElementById("stopButton");
+      const videoFeed = document.getElementById("videoFeed");
 
-        startButton.addEventListener("click", () => {
-            videoFeed.style.display = "block";
-            videoFeed.src = "/video_feed"; // Start the video feed by updating the img src
-            fetch("/start_video", { method: "POST" });  // Trigger the backend to start the video
-        });
+      startButton.addEventListener("click", () => {
+        videoFeed.style.display = "block";
+        videoFeed.src = "/video_feed"; // Start the video feed by updating the img src
+        fetch("/start_video", { method: "POST" }); // Trigger the backend to start the video
+      });
 
-        stopButton.addEventListener("click", () => {
-            videoFeed.style.display = "none"; // Hide the video
-            videoFeed.src = ""; // Stop displaying the feed
-            fetch("/stop_video", { method: "POST" });  // Trigger the backend to stop the video
-        });
+      stopButton.addEventListener("click", () => {
+        videoFeed.style.display = "none"; // Hide the video
+        videoFeed.src = ""; // Stop displaying the feed
+        fetch("/stop_video", { method: "POST" }); // Trigger the backend to stop the video
+      });
     </script>
-</body>
+  </body>
 </html>
