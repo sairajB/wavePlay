@@ -1,6 +1,5 @@
 #This file is just raw code of implementation and doesn't contribute to final project, therefore all code is commented
 
-
 # Import necessary libraries
 import cv2  # OpenCV for video capture and image processing
 import mediapipe as mp  # MediaPipe for hand detection and gesture recognition
