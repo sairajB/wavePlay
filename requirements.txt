@@ -4,6 +4,4 @@ opencv-python-headless==4.6.0.66
 mediapipe==0.10.15
 pyautogui==0.9.52
 numpy==1.21.0
-pip>=24.2
-setuptools>=75.1.0
-
+setuptools>=68.0.0
