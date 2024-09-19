@@ -1,8 +1,8 @@
-# Hand Gesture Control
+# WavePlay
 
 ## Description
 
-Hand Gesture Control is a project designed to facilitate hands-free interaction with computers, particularly for individuals with disabilities. By leveraging real-time hand gesture recognition, this project enables users to control keyboard actions without the need for traditional input devices such as keyboards or mice.
+WavePlay is a project designed to facilitate hands-free interaction with computers, particularly for individuals with disabilities. By leveraging real-time hand gesture recognition, this project enables users to control keyboard actions without the need for traditional input devices such as keyboards or mice.
 
 ## Table of Contents
 
@@ -34,7 +34,7 @@ This tool is particularly beneficial for individuals who may have difficulty usi
 
 ## Usage
 
-To start using the Hand Gesture Control application:
+To start using the WavePlay application:
 
 1. Ensure your webcam is connected and working.
 2. Run the application:
