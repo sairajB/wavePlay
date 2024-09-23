@@ -119,6 +119,3 @@ def stop_video():
     global streaming
     streaming = False
     return '', 204
-
-if __name__ == '__main__':
-    app.run(debug=True)
