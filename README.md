@@ -39,7 +39,7 @@ To start using the WavePlay application:
 1. Ensure your webcam is connected and working.
 2. Run the application:
     ```sh
-    python main.py
+    python app.py
     ```
 3. Perform gestures in front of the webcam to simulate keyboard actions:
     - **1 Finger Raised**: Simulates pressing the right arrow key.
